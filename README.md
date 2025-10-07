@@ -61,6 +61,6 @@ npx playwright test --project=chromium
 
 ## 🧑‍💻 Maintainer
 
-**Alda Sapphira**
-*IT QA*
+**Alda Sapphira**  
+*IT QA*  
 📧 [Contact on GitHub](https://github.com/aldaspr)
