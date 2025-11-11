@@ -12,7 +12,7 @@ export const test = base.extend({
   },
   tugasKerjaPage: async ({ page }, use) => {
     await use(new TugasKerjaPage(page));
-  },
+  }
 });
 
 export const expect = base.expect;

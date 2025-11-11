@@ -6,7 +6,7 @@ test('login invalid nik', async ({ page, loginPage }) => {
 });
 
 test('login invalid password', async ({ page, loginPage }) => {
-  await loginPage.login('0002610', '123456');
+  await loginPage.login('0002611', '123456');
   await expect(page.getByText('Username atau kata sandi salah')).toBeVisible();
 });
 

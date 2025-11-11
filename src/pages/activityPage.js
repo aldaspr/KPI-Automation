@@ -7,39 +7,46 @@ export class ActivityPage {
    */
   constructor(page) {
     this.page = page;
-    this.menuAktivitasHarian = this.page.locator('(//p[@class="truncate"])[text()="Aktivitas Harian"]');
-    this.buttonTambahAktivitas = this.page.locator('(//button[span[text()="Aktivitas Harian"]])[1]');
-    this.freeClick = this.page.getByRole('dialog', { name: 'Tambah Aktivitas' });
+    this.menuAktivitasHarian1 = this.page.getByRole('button', { name: 'Aktivitas Harian' });
+    this.menuAktivitasHarian2 = this.page.getByRole('link', { name: 'Aktivitas' });
+    this.buttonTambahAktivitas = this.page.getByRole('main').getByRole('button', { name: 'Aktivitas Harian', exact: true });
+    this.tanggalField = this.page.getByRole('textbox', { name: 'Tanggal' });
+    this.cabangField = this.page.getByRole('combobox', { name: 'Cabang' });
+    this.tickAnalisaReject = this.page.getByRole('row', { name: 'Analisa Reject Book 30 menit' }).getByRole('checkbox');
+    this.tickApprovalGadai = this.page.getByRole('row', { name: 'Approval Gadai Pugindo 45' }).getByRole('checkbox');
+    this.tickBriefingPagi = this.page.getByRole('row', { name: 'Briefing Pagi 30 menit' }).getByRole('checkbox');
     this.buttonSubmit = this.page.getByRole('button', { name: 'Submit' });
+    this.confirmSubmit = this.page.getByRole('button', { name: 'YA, Buat Aktivitas' });
+    this.buttonDeleteAll = this.page.getByRole('row', { name: 'Tanggal Cabang Aktivitas' }).getByRole('checkbox'); 
+    this.buttonDeleteDiatas = this.page.getByRole('button', { name: 'Hapus' }).nth(1);
+    this.confirmDelete = this.page.getByRole('button', { name: 'YA, Batalkan' });
     this.buttonDelete = this.page.locator('button.bg-destructive');
     this.acceptCancelButton = this.page.getByRole('button', { name: 'YA, Batalkan' });
-    this.confirmButton = this.page.locator('button.bg-green-600.text-white');
+    this.realizeButton = this.page.locator('.inline-flex.items-center.justify-center.gap-2.rounded-md.text-sm.font-medium.ring-offset-background.transition-colors.focus-visible\\:outline-none.focus-visible\\:ring-2.focus-visible\\:ring-ring.focus-visible\\:ring-offset-2.bg-green-600.text-white.hover\\:bg-green-600\\/90.h-8').first();
+    this.confirmPopUpRealisasi = this.page.getByRole('button', { name: 'YA, Realisasikan' });
     this.waktuMulaiField = this.page.getByRole('textbox', { name: 'Waktu Mulai' });
     this.waktuSelesaiField = this.page.getByRole('textbox', { name: 'Waktu Selesai' });
     this.catatanField = this.page.getByRole('textbox', { name: 'Catatan' });
-    this.buktiField = this.page.locator('div').filter({ hasText: /^Pilih file atau ambil foto$/ }).nth(1);
-    this.uploadGambar = this.page.locator('input[type="file"]');
+    this.buktiField = this.page.locator('.iconify.i-clarity\\:add-line.w-6');
+    this.uploadGambar = this.page.locator('input[type="file"]').first();
     this.buttonSimpan = this.page.getByRole('button', { name: 'Simpan' });
     this.rekapAktivitasBulanan = this.page.getByRole('button', { name: 'Rekap Aktivitas Bulanan' });
-    this.closeIcon = this.page.locator('svg:has(path[d="M18 6L6 18M6 6l12 12"])');
+    this.closeIcon = this.page.getByRole('button', { name: 'Close' });
     this.refreshButton = this.page.locator('form').getByRole('button').nth(1);
     this.rekapAktivitasHarian = this.page.getByRole('button', { name: 'Rekap Aktivitas Harian' });
     this.cabangDropdown = this.page.locator('#v-0-20-form-item-multiselect-option-152');
   }
 
   async clickTambahAktivitas() {
-    await this.menuAktivitasHarian.click();
-    await this.page.waitForTimeout(1000);
+    await this.menuAktivitasHarian2.click();
     await this.buttonTambahAktivitas.click();
   }
 
-  async fillForm({ date, branch, activity }) {
-    await this.page.getByRole('textbox', { name: 'Tanggal' }).fill(date);
-    await this.page.getByRole('combobox', { name: 'Cabang' }).click();
+  // @ts-ignore
+  async fillForm({ date, branch }) {
+    await this.tanggalField.fill(date);
+    await this.cabangField.click();
     await this.page.getByRole('option', { name: (branch) }).click();
-    await this.page.getByRole('combobox', { name: 'Aktivitas' }).click();
-    await this.page.getByRole('option', { name: (activity) }).click();
-    await this.freeClick.click();
   }
 
   async clickSubmitButton() {
@@ -52,10 +59,10 @@ export class ActivityPage {
   }
 
   async confirmActivity() {
-    await this.confirmButton.click();
+    await this.realizeButton.click();
     await this.waktuMulaiField.fill('10:00');
     await this.waktuSelesaiField.fill('10:10');
-    await this.catatanField.fill('test');
+    await this.catatanField.fill('test automate');
     await this.buktiField.click();
     await this.uploadGambar.setInputFiles('src/fixtures/bukti.png');
     await this.buttonSimpan.click();

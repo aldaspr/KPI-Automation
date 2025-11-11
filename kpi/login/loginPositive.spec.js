@@ -1,7 +1,7 @@
 // kpi/login.spec.js
 const { test, expect } = require('../../src/fixtures/basePage');
 
-test('Login to Trial Approval', async ({ page, loginPage }) => {
+test('Login as KC', async ({ page, loginPage }) => {
   await loginPage.login('0002611', '1234567');
   await expect(page.getByText('Selamat')).toBeVisible();
   await page.waitForTimeout(5000);

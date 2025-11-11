@@ -1,6 +1,6 @@
 const { test, expect } = require('../../../src/fixtures/basePage');
 
-test('Input date more than current date', async ({ page, loginPage, tugasKerjaPage }) => {
+test('KC - Input date more than current date', async ({ page, loginPage, tugasKerjaPage }) => {
   await loginPage.login('0002611', '1234567');
   await tugasKerjaPage.menuTugasKerja.click();
   const besok = new Date();
@@ -12,7 +12,7 @@ test('Input date more than current date', async ({ page, loginPage, tugasKerjaPa
   // await page.screenshot({ path: 'screenshots/login_success.png', fullPage: true });
 });
 
-test('Input all blank fields', async ({ page, loginPage, tugasKerjaPage }) => {
+test('KC - Input all blank fields', async ({ page, loginPage, tugasKerjaPage }) => {
   await loginPage.login('0002611', '1234567');
   await tugasKerjaPage.menuTugasKerja.click();
   await tugasKerjaPage.buttonStockOpname.click();
